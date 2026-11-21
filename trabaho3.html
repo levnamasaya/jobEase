@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobEase - Part-Time Jobs Marketplace</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 min-h-screen flex flex-col antialiased">
+
+  <!-- HEADER -->
+  <header class="border-b border-gray-200 py-4 px-6 bg-white">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div id="brand-logo" class="cursor-pointer flex items-center gap-2">
+        <span class="text-xl font-bold tracking-tight text-black">JobEase</span>
+        <span class="text-xs text-gray-400 border-l border-gray-200 pl-2">Part-Time Jobs</span>
+      </div>
+
+      <nav class="flex items-center gap-6 text-sm">
+        <div id="nav-user-section" class="hidden items-center gap-4">
+          <button id="nav-dashboard" class="font-semibold text-black">Dashboard</button>
+          <div class="flex items-center gap-3 border-l border-gray-200 pl-4 text-xs text-gray-500">
+            <span id="user-display-name">User</span>
+            <button id="btn-logout" class="text-gray-400 hover:text-black underline">Log Out</button>
+          </div>
+        </div>
+        <div id="nav-guest-section" class="flex items-center gap-3">
+          <button id="nav-login" class="text-xs text-gray-600 hover:text-black font-medium">
+            Log In
+          </button>
+          <button id="nav-signup" class="border border-black text-black px-4 py-1.5 rounded text-xs hover:bg-black hover:text-white transition-colors">
+            Sign Up
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1">
+
+    <!-- IMPROVISED GUEST ENTRY VIEW (SHOWN ONLY WHEN LOGGED OUT) -->
+    <section id="view-entry" class="max-w-3xl mx-auto px-6 py-16">
+      <div class="border border-gray-200 rounded p-8 sm:p-10 bg-white">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-black">
+            Local repair work &amp; skilled help in Pesos (₱).
+          </h1>
+          <p class="text-gray-600 text-sm sm:text-base mb-7">
+            Sign in to your account to go straight to your dashboard, or sign up to offer repair skills or post a fix request.
+          </p>
+
+          <div class="flex flex-col sm:flex-row justify-center gap-3">
+            <button id="entry-btn-login" class="bg-black text-white px-6 py-2.5 rounded text-sm font-medium hover:bg-gray-800 transition-colors">
+              Log In to Dashboard
+            </button>
+            <button id="entry-btn-signup-earn" class="bg-white text-black border border-gray-300 px-6 py-2.5 rounded text-sm font-medium hover:border-black transition-colors">
+              Sign Up as Skilled Worker
+            </button>
+            <button id="entry-btn-signup-hire" class="bg-white text-black border border-gray-300 px-6 py-2.5 rounded text-sm font-medium hover:border-black transition-colors">
+              Sign Up to Need Repair
+            </button>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-100 pt-6">
+          <h2 class="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-4 text-center">
+            Supported Trades &amp; Repair Fields
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs text-gray-700">
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Plumbing</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Electrical</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Carpentry</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Appliance Repair</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">HVAC / Aircon Repair</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Painting</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Cleaning &amp; Handyman</div>
+            <div class="border border-gray-200 rounded px-3 py-2 text-center">Automotive Repair</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGN UP FORM (ONLY WHEN LOGGED OUT) -->
+    <section id="view-signup" class="hidden max-w-xl mx-auto px-6 py-12">
+      <div class="border border-gray-200 p-8 rounded bg-white">
+        <h2 class="text-2xl font-bold mb-1 text-black">Create a JobEase Account</h2>
+        <p class="text-xs text-gray-500 mb-6">Sign up to go directly to your dashboard.</p>
+
+        <form id="signup-form" class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Your Name</label>
+            <input 
+              type="text" 
+              id="signup-name" 
+              required 
+              placeholder="Enter your full name" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Gmail Address</label>
+            <input 
+              type="email" 
+              id="signup-gmail" 
+              required 
+              placeholder="yourname@gmail.com" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Password</label>
+            <input 
+              type="password" 
+              id="signup-password" 
+              required 
+              minlength="4"
+              placeholder="Create a password" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Address</label>
+            <input 
+              type="text" 
+              id="signup-address" 
+              required 
+              placeholder="Street, Barangay, City / Province" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Phone Number</label>
+            <input 
+              type="tel" 
+              id="signup-phone" 
+              required 
+              placeholder="e.g. 0917 123 4567" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-2">Primary Goal</label>
+            <div class="grid grid-cols-2 gap-3">
+              <button 
+                type="button" 
+                id="role-btn-earn" 
+                class="role-option p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black"
+                data-role="earn"
+              >
+                <div>Have Skills (Earn Money)</div>
+                <div class="text-[10px] text-gray-400 font-normal mt-0.5">Offer trades &amp; repair work</div>
+              </button>
+              <button 
+                type="button" 
+                id="role-btn-hire" 
+                class="role-option p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400"
+                data-role="hire"
+              >
+                <div>Need Repair (Hire Skilled Help)</div>
+                <div class="text-[10px] text-gray-400 font-normal mt-0.5">Post repair / hire technician</div>
+              </button>
+            </div>
+          </div>
+
+          <div id="skills-section">
+            <label id="selection-label" class="block text-xs font-semibold uppercase text-gray-500 mb-2">
+              Select Your Skills / Profession
+            </label>
+            <div id="skills-container" class="border border-gray-200 p-4 rounded max-h-56 overflow-y-auto"></div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full bg-black text-white py-2.5 rounded text-sm font-medium hover:bg-gray-800 transition-colors"
+          >
+            Sign Up &amp; Go to Dashboard
+          </button>
+        </form>
+
+        <div class="border-t border-gray-100 mt-6 pt-4 text-center text-xs text-gray-500">
+          Already have an account?
+          <button type="button" id="switch-to-login" class="text-black font-semibold underline ml-1">
+            Log In
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOG IN FORM (ONLY WHEN LOGGED OUT) -->
+    <section id="view-login" class="hidden max-w-md mx-auto px-6 py-16">
+      <div class="border border-gray-200 p-8 rounded bg-white">
+        <h2 class="text-2xl font-bold mb-1 text-black">Log In to JobEase</h2>
+        <p class="text-xs text-gray-500 mb-6">Enter your Gmail address and password to go directly to your dashboard.</p>
+
+        <form id="login-form" class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Gmail Address</label>
+            <input 
+              type="email" 
+              id="login-gmail" 
+              required 
+              placeholder="yourname@gmail.com" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Password</label>
+            <input 
+              type="password" 
+              id="login-password" 
+              required 
+              placeholder="Enter your password" 
+              class="w-full px-3 py-2 border border-gray-300 text-sm rounded focus:outline-none focus:border-black"
+            >
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full bg-black text-white py-2.5 rounded text-sm font-medium hover:bg-gray-800 transition-colors"
+          >
+            Log In to Dashboard
+          </button>
+        </form>
+
+        <div class="border-t border-gray-100 mt-6 pt-4 text-center text-xs text-gray-500">
+          Don't have an account yet?
+          <button type="button" id="switch-to-signup" class="text-black font-semibold underline ml-1">
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="hidden max-w-6xl mx-auto px-6 py-8">
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+
+        <!-- LEFT SIDE: PROFILE DETAILS + CLIENT WORKER-INTEREST NOTIFICATIONS -->
+        <aside class="w-full lg:w-80 shrink-0 space-y-4">
+          <div class="border border-gray-200 rounded p-6 bg-white">
+            <div class="border-b border-gray-200 pb-4 mb-4">
+              <span id="profile-role-badge" class="inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 border border-black text-black rounded mb-2">
+                Skilled Worker
+              </span>
+              <h2 id="profile-name" class="text-lg font-bold text-black break-words">User</h2>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <div>
+                <div class="text-[10px] font-semibold uppercase text-gray-400">Gmail Address</div>
+                <div id="profile-gmail" class="text-gray-800 break-all mt-0.5">-</div>
+              </div>
+
+              <div>
+                <div class="text-[10px] font-semibold uppercase text-gray-400">Phone Number</div>
+                <div id="profile-phone" class="text-gray-800 mt-0.5">-</div>
+              </div>
+
+              <div>
+                <div class="text-[10px] font-semibold uppercase text-gray-400">Address</div>
+                <div id="profile-address" class="text-gray-800 mt-0.5">-</div>
+              </div>
+
+              <div id="profile-skills-block" class="pt-3 border-t border-gray-100">
+                <div class="text-[10px] font-semibold uppercase text-gray-400 mb-2">Selected Skills</div>
+                <div id="profile-skills-list" class="flex flex-wrap gap-1.5"></div>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-200 mt-6 pt-4">
+              <button 
+                id="profile-btn-logout" 
+                class="w-full border border-gray-300 text-gray-700 py-2 rounded text-xs font-medium hover:border-black hover:text-black transition-colors"
+              >
+                Log Out
+              </button>
+            </div>
+          </div>
+
+          <!-- NOTIFICATION PANEL BELOW PROFILE INFO FOR "NEED REPAIR" (HIRE) USERS -->
+          <div id="client-notifications-panel" class="hidden border border-gray-200 rounded p-5 bg-white">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2.5 mb-3">
+              <h3 class="text-[11px] font-bold uppercase tracking-wider text-black">
+                Worker Interest Notifications
+              </h3>
+              <span id="client-notif-count" class="text-[10px] font-semibold px-2 py-0.5 border border-gray-300 rounded text-gray-700">
+                0
+              </span>
+            </div>
+            <div id="client-notifications-list" class="space-y-2.5 text-xs">
+              <!-- Populated dynamically when skilled workers apply to repair posts -->
+            </div>
+          </div>
+        </aside>
+
+        <!-- RIGHT SIDE: MAIN DASHBOARD CONTENT -->
+        <div class="flex-1 w-full min-w-0">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 pb-5 mb-6 gap-4">
+            <div>
+              <h1 class="text-2xl font-bold text-black">Dashboard</h1>
+              <p id="dash-subtitle" class="text-xs text-gray-500 mt-0.5">
+                Browse available opportunities matching your trade skills.
+              </p>
+            </div>
+
+            <div>
+              <button 
+                id="btn-post-task" 
+                class="hidden bg-black text-white px-4 py-2 rounded text-xs font-medium hover:bg-gray-800 transition-colors"
+              >
+                + Job Repair Post
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+            <div id="category-filters" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs"></div>
+
+            <div class="w-full md:w-64">
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Search listings..." 
+                class="w-full px-3 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:border-black"
+              >
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h2 id="feed-title" class="text-sm font-bold uppercase tracking-wider text-gray-400">
+              Open Repair &amp; Maintenance Jobs
+            </h2>
+          </div>
+
+          <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JOB REPAIR POST MODAL (NEED REPAIR / CLIENT MODE) -->
+  <div id="modal-post-task" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-gray-300 rounded max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+      <h3 class="text-lg font-bold text-black mb-1">Job Repair Post</h3>
+      <p class="text-xs text-gray-500 mb-4">Fill out basic repair details and optionally attach an image.</p>
+
+      <form id="new-task-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Task Title</label>
+          <input 
+            type="text" 
+            id="task-title" 
+            required 
+            placeholder="e.g. Repair leaking faucet" 
+            class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black"
+          >
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Category</label>
+            <select 
+              id="task-category" 
+              class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black bg-white"
+            ></select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Budget (₱)</label>
+            <input 
+              type="number" 
+              id="task-budget" 
+              min="0"
+              step="1"
+              placeholder="e.g. 500" 
+              class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Description</label>
+          <textarea 
+            id="task-desc" 
+            rows="3" 
+            placeholder="Brief details about the repair issue..." 
+            class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Attach Image (Optional)</label>
+          <input 
+            type="file" 
+            id="task-image-input" 
+            accept="image/*" 
+            class="w-full text-xs text-gray-600 border border-gray-300 rounded px-2.5 py-1.5 bg-white file:mr-3 file:py-1 file:px-2.5 file:rounded file:border file:border-gray-300 file:text-xs file:font-medium file:bg-white file:text-black hover:file:border-black cursor-pointer"
+          >
+          <div id="task-image-preview-wrap" class="hidden mt-2 border border-gray-200 rounded p-2 bg-white">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-[11px] text-gray-500">Selected Image Preview</span>
+              <button 
+                type="button" 
+                id="btn-remove-task-image" 
+                class="text-[11px] text-gray-500 hover:text-black underline"
+              >
+                Remove
+              </button>
+            </div>
+            <img id="task-image-preview" src="" alt="Repair issue preview" class="w-full h-36 object-cover rounded border border-gray-200">
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button 
+            type="button" 
+            id="btn-close-modal" 
+            class="w-1/2 border border-gray-300 text-gray-700 text-xs font-semibold py-2 rounded hover:border-black transition-colors"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="w-1/2 bg-black text-white text-xs font-semibold py-2 rounded hover:bg-gray-800 transition-colors"
+          >
+            Publish Job Repair Post
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- APPLY & PAYMENT METHOD MODAL (SKILLED WORKER MODE) -->
+  <div id="modal-apply-payment" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-gray-300 rounded max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+      <div class="border-b border-gray-200 pb-3 mb-4">
+        <span class="text-[10px] font-semibold uppercase tracking-wider text-gray-400">Work Application</span>
+        <h3 id="apply-job-title" class="text-lg font-bold text-black mt-0.5">Job Title</h3>
+        <p id="apply-job-meta" class="text-xs text-gray-500 mt-0.5">Budget: ₱0 • Client: Name</p>
+      </div>
+
+      <form id="apply-payment-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-gray-500 mb-2">Select Payment Method</label>
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              id="pay-btn-cash"
+              class="p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black"
+            >
+              <div>Cash Only</div>
+              <div class="text-[10px] text-gray-400 font-normal mt-0.5">In-person cash payment (₱)</div>
+            </button>
+            <button
+              type="button"
+              id="pay-btn-online"
+              class="p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400"
+            >
+              <div>Online Payment</div>
+              <div class="text-[10px] text-gray-400 font-normal mt-0.5">Card or digital transfer</div>
+            </button>
+          </div>
+        </div>
+
+        <div id="cash-options-section" class="border border-gray-200 rounded p-4 bg-white">
+          <div class="text-xs font-semibold uppercase text-gray-500 mb-1">Cash Payment Currency</div>
+          <div class="text-xs text-gray-800">Philippine Peso (₱)</div>
+        </div>
+
+        <div id="online-options-section" class="hidden border border-gray-200 rounded p-4 bg-white space-y-3">
+          <label class="block text-xs font-semibold uppercase text-gray-500">Select Online Payment Type</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              id="online-type-card"
+              class="py-2 px-3 text-xs border rounded text-center transition-colors border-black bg-black text-white font-medium"
+            >
+              Card
+            </button>
+            <button
+              type="button"
+              id="online-type-transaction"
+              class="py-2 px-3 text-xs border rounded text-center transition-colors border-gray-200 text-gray-700 hover:border-gray-400"
+            >
+              Online Transaction
+            </button>
+          </div>
+
+          <div id="online-card-details" class="space-y-2.5 pt-1">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase text-gray-500 mb-1">Card Type / Bank</label>
+              <select
+                id="input-card-type"
+                class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black bg-white"
+              >
+                <option value="Debit Card">Debit Card (Visa / Mastercard)</option>
+                <option value="Credit Card">Credit Card (Visa / Mastercard)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase text-gray-500 mb-1">Account / Cardholder Name</label>
+              <input
+                type="text"
+                id="input-card-holder"
+                placeholder="Name on card"
+                class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black"
+              >
+            </div>
+          </div>
+
+          <div id="online-transaction-details" class="hidden space-y-2.5 pt-1">
+            <div>
+              <label class="block text-[11px] font-semibold uppercase text-gray-500 mb-1">Platform / Wallet</label>
+              <select
+                id="input-online-platform"
+                class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black bg-white"
+              >
+                <option value="GCash">GCash</option>
+                <option value="Maya">Maya</option>
+                <option value="Bank Transfer (InstaPay / PESONet)">Bank Transfer (InstaPay / PESONet)</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Other E-Wallet">Other E-Wallet</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold uppercase text-gray-500 mb-1">Account Number / Handle</label>
+              <input
+                type="text"
+                id="input-online-account"
+                placeholder="e.g. 0917 123 4567 or @username"
+                class="w-full px-3 py-2 text-xs border border-gray-300 rounded focus:outline-none focus:border-black"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button
+            type="button"
+            id="btn-close-apply-modal"
+            class="w-1/2 border border-gray-300 text-gray-700 text-xs font-semibold py-2 rounded hover:border-black transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="w-1/2 bg-black text-white text-xs font-semibold py-2 rounded hover:bg-gray-800 transition-colors"
+          >
+            Confirm Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="notification-box" class="hidden fixed bottom-4 right-4 bg-black text-white px-4 py-2 text-xs rounded border border-black shadow-none z-50">
+    <span id="notification-message">Message</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-200 py-6 px-6 text-center text-xs text-gray-400 mt-auto bg-white">
+    <p>JobEase — Minimal Part-Time Jobs Marketplace</p>
+  </footer>
+
+  <!-- VANILLA JAVASCRIPT LOGIC -->
+  <script>
+    const API_ENDPOINTS = {
+      state: 'get_state.php',
+      signup: 'auth.php',
+      login: 'login.php',
+      postJob: 'post_job.php',
+      applyJob: 'apply_job.php',
+      logout: 'logout.php'
+    };
+
+    const tradeCatalog = [
+      { id: 'plumbing', skill: 'Plumbing', fix: 'Plumbing Issue' },
+      { id: 'electrical', skill: 'Electrical', fix: 'Electrical Issue' },
+      { id: 'carpentry', skill: 'Carpentry', fix: 'Carpentry / Furniture' },
+      { id: 'appliance', skill: 'Appliance Repair', fix: 'Appliance Repair' },
+      { id: 'hvac', skill: 'HVAC / Aircon Repair', fix: 'Aircon / HVAC' },
+      { id: 'painting', skill: 'Painting', fix: 'Painting' },
+      { id: 'handyman', skill: 'Cleaning & Handyman', fix: 'General Handyman / Cleaning' },
+      { id: 'automotive', skill: 'Automotive Repair', fix: 'Car / Motorcycle Repair' }
+    ];
+
+    const STORAGE_USERS_KEY = 'jobease_registered_users_v1';
+    const STORAGE_NOTIFS_KEY = 'jobease_client_notifications_v1';
+
+    let registeredUsers = JSON.parse(localStorage.getItem(STORAGE_USERS_KEY) || '[]');
+    let clientNotifications = JSON.parse(localStorage.getItem(STORAGE_NOTIFS_KEY) || '[]');
+
+    let jobsData = [];
+    let currentUser = null;
+    let selectedAuthRole = 'earn';
+    let selectedItems = [];
+    let activeFilter = 'All';
+    let searchQuery = '';
+    let pendingTaskImageUrl = '';
+    let pendingTaskImageFile = null;
+
+    let activeApplyJobId = null;
+    let selectedPaymentMode = 'cash';
+    let selectedOnlineType = 'card';
+
+    // DOM Elements
+    const viewEntry = document.getElementById('view-entry');
+    const viewSignup = document.getElementById('view-signup');
+    const viewLogin = document.getElementById('view-login');
+    const viewDashboard = document.getElementById('view-dashboard');
+
+    const navDashboard = document.getElementById('nav-dashboard');
+    const navGuestSection = document.getElementById('nav-guest-section');
+    const navLogin = document.getElementById('nav-login');
+    const navSignup = document.getElementById('nav-signup');
+    const navUserSection = document.getElementById('nav-user-section');
+    const userDisplayName = document.getElementById('user-display-name');
+    const btnLogout = document.getElementById('btn-logout');
+    const profileBtnLogout = document.getElementById('profile-btn-logout');
+
+    const entryBtnLogin = document.getElementById('entry-btn-login');
+    const entryBtnSignupEarn = document.getElementById('entry-btn-signup-earn');
+    const entryBtnSignupHire = document.getElementById('entry-btn-signup-hire');
+
+    const signupForm = document.getElementById('signup-form');
+    const signupName = document.getElementById('signup-name');
+    const signupGmail = document.getElementById('signup-gmail');
+    const signupPassword = document.getElementById('signup-password');
+    const signupAddress = document.getElementById('signup-address');
+    const signupPhone = document.getElementById('signup-phone');
+    const roleBtnEarn = document.getElementById('role-btn-earn');
+    const roleBtnHire = document.getElementById('role-btn-hire');
+    const skillsSection = document.getElementById('skills-section');
+    const selectionLabel = document.getElementById('selection-label');
+    const skillsContainer = document.getElementById('skills-container');
+    const switchToLogin = document.getElementById('switch-to-login');
+
+    const loginForm = document.getElementById('login-form');
+    const loginGmail = document.getElementById('login-gmail');
+    const loginPassword = document.getElementById('login-password');
+    const switchToSignup = document.getElementById('switch-to-signup');
+
+    const profileRoleBadge = document.getElementById('profile-role-badge');
+    const profileName = document.getElementById('profile-name');
+    const profileGmail = document.getElementById('profile-gmail');
+    const profilePhone = document.getElementById('profile-phone');
+    const profileAddress = document.getElementById('profile-address');
+    const profileSkillsBlock = document.getElementById('profile-skills-block');
+    const profileSkillsList = document.getElementById('profile-skills-list');
+
+    const clientNotificationsPanel = document.getElementById('client-notifications-panel');
+    const clientNotifCount = document.getElementById('client-notif-count');
+    const clientNotificationsList = document.getElementById('client-notifications-list');
+
+    const dashSubtitle = document.getElementById('dash-subtitle');
+    const btnPostTask = document.getElementById('btn-post-task');
+    const categoryFiltersContainer = document.getElementById('category-filters');
+    const searchInput = document.getElementById('search-input');
+    const feedTitle = document.getElementById('feed-title');
+    const cardsGrid = document.getElementById('cards-grid');
+
+    const modalPostTask = document.getElementById('modal-post-task');
+    const newTaskForm = document.getElementById('new-task-form');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+    const taskCategorySelect = document.getElementById('task-category');
+    const taskImageInput = document.getElementById('task-image-input');
+    const taskImagePreviewWrap = document.getElementById('task-image-preview-wrap');
+    const taskImagePreview = document.getElementById('task-image-preview');
+    const btnRemoveTaskImage = document.getElementById('btn-remove-task-image');
+
+    const modalApplyPayment = document.getElementById('modal-apply-payment');
+    const applyJobTitle = document.getElementById('apply-job-title');
+    const applyJobMeta = document.getElementById('apply-job-meta');
+    const applyPaymentForm = document.getElementById('apply-payment-form');
+    const btnCloseApplyModal = document.getElementById('btn-close-apply-modal');
+
+    const payBtnCash = document.getElementById('pay-btn-cash');
+    const payBtnOnline = document.getElementById('pay-btn-online');
+    const cashOptionsSection = document.getElementById('cash-options-section');
+    const onlineOptionsSection = document.getElementById('online-options-section');
+
+    const onlineTypeCard = document.getElementById('online-type-card');
+    const onlineTypeTransaction = document.getElementById('online-type-transaction');
+    const onlineCardDetails = document.getElementById('online-card-details');
+    const onlineTransactionDetails = document.getElementById('online-transaction-details');
+
+    function saveNotifications() {
+      localStorage.setItem(STORAGE_NOTIFS_KEY, JSON.stringify(clientNotifications));
+    }
+
+    // Enforces session guard: logged-in users stay on Dashboard; guests cannot enter Dashboard
+    function switchView(viewName) {
+      viewEntry.classList.add('hidden');
+      viewSignup.classList.add('hidden');
+      viewLogin.classList.add('hidden');
+      viewDashboard.classList.add('hidden');
+
+      if (currentUser) {
+        viewDashboard.classList.remove('hidden');
+        renderDashboard();
+        return;
+      }
+
+      if (viewName === 'signup') {
+        viewSignup.classList.remove('hidden');
+        renderSelectionPicker();
+      } else if (viewName === 'login') {
+        viewLogin.classList.remove('hidden');
+      } else {
+        viewEntry.classList.remove('hidden');
+      }
+    }
+
+    function updateNavState() {
+      if (currentUser) {
+        navGuestSection.classList.add('hidden');
+        navUserSection.classList.remove('hidden');
+        navUserSection.classList.add('flex');
+        userDisplayName.textContent = currentUser.name;
+      } else {
+        navGuestSection.classList.remove('hidden');
+        navUserSection.classList.add('hidden');
+        navUserSection.classList.remove('flex');
+      }
+    }
+
+    function showNotification(msg) {
+      const box = document.getElementById('notification-box');
+      const text = document.getElementById('notification-message');
+      text.textContent = msg;
+      box.classList.remove('hidden');
+      setTimeout(() => {
+        box.classList.add('hidden');
+      }, 3500);
+    }
+
+    async function syncBackendState(openDashboardIfLoggedIn = false) {
+      try {
+        const res = await fetch(API_ENDPOINTS.state, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+
+        jobsData = Array.isArray(data.jobs) ? data.jobs : [];
+        if (Array.isArray(data.notifications)) {
+          clientNotifications = data.notifications;
+          saveNotifications();
+        }
+
+        if (data.user) {
+          currentUser = {
+            id: data.user.id,
+            name: data.user.full_name || data.user.name || '',
+            gmail: data.user.gmail || '',
+            address: data.user.address || '',
+            phone: data.user.phone || '',
+            role: data.user.role === 'hire' ? 'hire' : 'earn',
+            selectedItems: Array.isArray(data.skills) ? data.skills : []
+          };
+          updateNavState();
+          if (openDashboardIfLoggedIn) {
+            switchView('dashboard');
+          } else if (!viewDashboard.classList.contains('hidden')) {
+            renderDashboard();
+          }
+        }
+      } catch (err) {
+        // Offline / static mode fallback
+      }
+    }
+
+    function setAuthRole(role) {
+      if (selectedAuthRole !== role) {
+        selectedItems = [];
+      }
+      selectedAuthRole = role;
+
+      if (role === 'earn') {
+        roleBtnEarn.className = "role-option p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black";
+        roleBtnHire.className = "role-option p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400";
+        skillsSection.classList.remove('hidden');
+        selectionLabel.textContent = 'Select Your Skills / Profession';
+        renderSelectionPicker();
+      } else {
+        roleBtnHire.className = "role-option p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black";
+        roleBtnEarn.className = "role-option p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400";
+        skillsSection.classList.add('hidden');
+      }
+    }
+
+    function renderSelectionPicker() {
+      if (selectedAuthRole !== 'earn') return;
+
+      skillsContainer.innerHTML = '';
+      const pillWrap = document.createElement('div');
+      pillWrap.className = 'flex flex-wrap gap-2';
+
+      tradeCatalog.forEach(item => {
+        const isSelected = selectedItems.includes(item.skill);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = item.skill;
+        btn.className = `text-xs px-3 py-1.5 rounded border transition-colors ${
+          isSelected 
+            ? 'bg-black text-white border-black' 
+            : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
+        }`;
+
+        btn.onclick = () => {
+          if (selectedItems.includes(item.skill)) {
+            selectedItems = selectedItems.filter(s => s !== item.skill);
+          } else {
+            selectedItems.push(item.skill);
+          }
+          renderSelectionPicker();
+        };
+
+        pillWrap.appendChild(btn);
+      });
+
+      skillsContainer.appendChild(pillWrap);
+    }
+
+    function renderClientNotifications() {
+      if (!currentUser || currentUser.role !== 'hire') {
+        clientNotificationsPanel.classList.add('hidden');
+        return;
+      }
+
+      clientNotificationsPanel.classList.remove('hidden');
+
+      const myNotifs = clientNotifications.filter(n => {
+        const matchName = n.clientName && n.clientName.toLowerCase() === currentUser.name.toLowerCase();
+        const matchGmail = n.clientGmail && currentUser.gmail && n.clientGmail.toLowerCase() === currentUser.gmail.toLowerCase();
+        return matchName || matchGmail;
+      });
+
+      clientNotifCount.textContent = String(myNotifs.length);
+      clientNotificationsList.innerHTML = '';
+
+      if (myNotifs.length === 0) {
+        clientNotificationsList.innerHTML = '<div class="text-gray-400 text-[11px]">No skilled worker offers yet. When a worker applies to your post, you will be notified here.</div>';
+        return;
+      }
+
+      myNotifs.forEach(notif => {
+        const item = document.createElement('div');
+        item.className = 'border border-gray-200 rounded p-3 bg-white';
+        item.innerHTML = `
+          <div class="font-semibold text-black leading-snug">
+            ${notif.workerName} is interested in your post "<span class="underline">${notif.jobTitle}</span>" and wants to fix the issue.
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">
+            Category: ${notif.category} • Payment: ${notif.paymentSummary}
+          </div>
+        `;
+        clientNotificationsList.appendChild(item);
+      });
+    }
+
+    function renderDashboard() {
+      if (!currentUser) return;
+
+      profileRoleBadge.textContent = currentUser.role === 'earn' ? 'Skilled Worker' : 'Need Repair';
+      profileName.textContent = currentUser.name;
+      profileGmail.textContent = currentUser.gmail;
+      profilePhone.textContent = currentUser.phone;
+      profileAddress.textContent = currentUser.address;
+
+      if (currentUser.role === 'earn') {
+        profileSkillsBlock.classList.remove('hidden');
+        profileSkillsList.innerHTML = '';
+
+        if (currentUser.selectedItems && currentUser.selectedItems.length > 0) {
+          currentUser.selectedItems.forEach(skill => {
+            const tag = document.createElement('span');
+            tag.textContent = skill;
+            tag.className = 'text-[11px] px-2 py-0.5 border border-gray-300 text-gray-800 rounded bg-white';
+            profileSkillsList.appendChild(tag);
+          });
+        } else {
+          const emptyMsg = document.createElement('span');
+          emptyMsg.textContent = 'All Trades / General';
+          emptyMsg.className = 'text-[11px] text-gray-400';
+          profileSkillsList.appendChild(emptyMsg);
+        }
+
+        dashSubtitle.textContent = 'Browse open repair and maintenance tasks posted on JobEase.';
+        btnPostTask.classList.add('hidden');
+        feedTitle.textContent = 'Open Repair & Maintenance Jobs';
+      } else {
+        profileSkillsBlock.classList.add('hidden');
+        dashSubtitle.textContent = 'Post a new job repair request for skilled workers.';
+        btnPostTask.classList.remove('hidden');
+        feedTitle.textContent = 'Your Posted Job Repair Requests';
+      }
+
+      renderClientNotifications();
+      renderCategoryFilters();
+      renderCards();
+    }
+
+    function renderCategoryFilters() {
+      categoryFiltersContainer.innerHTML = '<span class="text-gray-400 font-semibold uppercase text-[10px]">Filter:</span>';
+      
+      const filterOptions = ['All', ...tradeCatalog.map(t => t.skill)];
+      filterOptions.forEach(skillName => {
+        const catalogEntry = tradeCatalog.find(t => t.skill === skillName);
+        const labelText = skillName === 'All' 
+          ? 'All' 
+          : (currentUser.role === 'hire' && catalogEntry ? catalogEntry.fix : skillName);
+
+        const btn = document.createElement('button');
+        btn.textContent = labelText;
+        btn.className = `px-2.5 py-1 rounded whitespace-nowrap border text-xs transition-colors ${
+          activeFilter === skillName 
+            ? 'bg-black text-white border-black' 
+            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+        }`;
+        btn.onclick = () => {
+          activeFilter = skillName;
+          renderCategoryFilters();
+          renderCards();
+        };
+        categoryFiltersContainer.appendChild(btn);
+      });
+    }
+
+    function renderCards() {
+      cardsGrid.innerHTML = '';
+
+      if (currentUser.role === 'earn') {
+        const filteredJobs = jobsData.filter(j => {
+          const matchCat = (activeFilter === 'All' || j.category === activeFilter);
+          const matchSearch = j.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              j.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              j.category.toLowerCase().includes(searchQuery.toLowerCase());
+          return matchCat && matchSearch;
+        });
+
+        if (filteredJobs.length === 0) {
+          cardsGrid.innerHTML = '<div class="col-span-full py-12 text-center text-xs text-gray-400">No open repair jobs available right now.</div>';
+          return;
+        }
+
+        filteredJobs.forEach(job => {
+          const card = document.createElement('div');
+          card.className = 'border border-gray-200 p-5 rounded bg-white flex flex-col justify-between';
+          
+          const imgSrc = job.imageUrl || job.image_path || '';
+          const imageHtml = imgSrc 
+            ? `<div class="mb-3"><img src="${imgSrc}" alt="${job.title}" class="w-full h-40 object-cover rounded border border-gray-200"></div>` 
+            : '';
+
+          const budgetText = job.budget || (job.budget_php !== undefined ? `₱${Number(job.budget_php).toLocaleString()}` : 'Negotiable (₱)');
+          const authorText = job.postedBy || job.client_name || currentUser.name;
+
+          card.innerHTML = `
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-[10px] font-semibold uppercase px-2 py-0.5 bg-gray-100 text-gray-700 rounded border border-gray-200">
+                  ${job.category}
+                </span>
+                <span class="font-bold text-sm text-black">${budgetText}</span>
+              </div>
+              ${imageHtml}
+              <h3 class="font-bold text-black text-base mb-2">${job.title}</h3>
+              <p class="text-xs text-gray-600 mb-4">${job.description}</p>
+            </div>
+            <div class="border-t border-gray-100 pt-3 mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500">By <strong class="text-black">${authorText}</strong></span>
+              <button onclick="openApplyModal(${job.id})" class="border border-black text-black px-3 py-1 rounded text-xs hover:bg-black hover:text-white transition-colors">
+                Offer Help
+              </button>
+            </div>
+          `;
+          cardsGrid.appendChild(card);
+        });
+
+      } else {
+        const myJobs = jobsData.filter(j => {
+          const authorText = j.postedBy || j.client_name || '';
+          const isMine = authorText === currentUser.name || Number(j.client_id) === Number(currentUser.id);
+          const matchCat = (activeFilter === 'All' || j.category === activeFilter);
+          const matchSearch = j.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              j.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              j.category.toLowerCase().includes(searchQuery.toLowerCase());
+          return isMine && matchCat && matchSearch;
+        });
+
+        if (myJobs.length === 0) {
+          cardsGrid.innerHTML = '<div class="col-span-full py-12 text-center text-xs text-gray-400">No job repair posts yet. Click "+ Job Repair Post" to create one.</div>';
+          return;
+        }
+
+        myJobs.forEach(job => {
+          const card = document.createElement('div');
+          card.className = 'border border-gray-200 p-5 rounded bg-white flex flex-col justify-between';
+
+          const imgSrc = job.imageUrl || job.image_path || '';
+          const imageHtml = imgSrc 
+            ? `<div class="mb-3"><img src="${imgSrc}" alt="${job.title}" class="w-full h-40 object-cover rounded border border-gray-200"></div>` 
+            : '';
+
+          const budgetText = job.budget || (job.budget_php !== undefined ? `₱${Number(job.budget_php).toLocaleString()}` : 'Negotiable (₱)');
+          const locText = job.location || currentUser.address;
+
+          card.innerHTML = `
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-[10px] font-semibold uppercase px-2 py-0.5 bg-gray-100 text-gray-700 rounded border border-gray-200">
+                  ${job.category}
+                </span>
+                <span class="font-bold text-sm text-black">${budgetText}</span>
+              </div>
+              ${imageHtml}
+              <h3 class="font-bold text-black text-base mb-2">${job.title}</h3>
+              <p class="text-xs text-gray-600 mb-4">${job.description}</p>
+            </div>
+            <div class="border-t border-gray-100 pt-3 mt-2 flex justify-between items-center text-xs">
+              <span class="text-gray-500">Location: <strong class="text-black">${locText}</strong></span>
+              <button onclick="deleteJobPost(${job.id})" class="border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs hover:border-black hover:text-black transition-colors">
+                Remove Post
+              </button>
+            </div>
+          `;
+          cardsGrid.appendChild(card);
+        });
+      }
+    }
+
+    window.deleteJobPost = function(jobId) {
+      jobsData = jobsData.filter(j => j.id !== jobId);
+      renderCards();
+      showNotification('Job repair post removed.');
+    };
+
+    function setPaymentMode(mode) {
+      selectedPaymentMode = mode;
+
+      if (mode === 'cash') {
+        payBtnCash.className = "p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black";
+        payBtnOnline.className = "p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400";
+        cashOptionsSection.classList.remove('hidden');
+        onlineOptionsSection.classList.add('hidden');
+      } else {
+        payBtnOnline.className = "p-3 text-left border rounded text-xs transition-colors border-black bg-gray-50 font-semibold text-black";
+        payBtnCash.className = "p-3 text-left border rounded text-xs transition-colors border-gray-200 text-gray-600 hover:border-gray-400";
+        onlineOptionsSection.classList.remove('hidden');
+        cashOptionsSection.classList.add('hidden');
+      }
+    }
+
+    function setOnlineType(type) {
+      selectedOnlineType = type;
+
+      if (type === 'card') {
+        onlineTypeCard.className = "py-2 px-3 text-xs border rounded text-center transition-colors border-black bg-black text-white font-medium";
+        onlineTypeTransaction.className = "py-2 px-3 text-xs border rounded text-center transition-colors border-gray-200 text-gray-700 hover:border-gray-400";
+        onlineCardDetails.classList.remove('hidden');
+        onlineTransactionDetails.classList.add('hidden');
+      } else {
+        onlineTypeTransaction.className = "py-2 px-3 text-xs border rounded text-center transition-colors border-black bg-black text-white font-medium";
+        onlineTypeCard.className = "py-2 px-3 text-xs border rounded text-center transition-colors border-gray-200 text-gray-700 hover:border-gray-400";
+        onlineTransactionDetails.classList.remove('hidden');
+        onlineCardDetails.classList.add('hidden');
+      }
+    }
+
+    window.openApplyModal = function(jobId) {
+      const job = jobsData.find(j => j.id === jobId);
+      if (!job) return;
+
+      activeApplyJobId = jobId;
+      const budgetText = job.budget || (job.budget_php !== undefined ? `₱${Number(job.budget_php).toLocaleString()}` : 'Negotiable (₱)');
+      const authorText = job.postedBy || job.client_name || 'Client';
+
+      applyJobTitle.textContent = job.title;
+      applyJobMeta.textContent = `Budget: ${budgetText} • Client: ${authorText}`;
+
+      applyPaymentForm.reset();
+      setPaymentMode('cash');
+      setOnlineType('card');
+
+      modalApplyPayment.classList.remove('hidden');
+    };
+
+    payBtnCash.onclick = () => setPaymentMode('cash');
+    payBtnOnline.onclick = () => setPaymentMode('online');
+
+    onlineTypeCard.onclick = () => setOnlineType('card');
+    onlineTypeTransaction.onclick = () => setOnlineType('transaction');
+
+    btnCloseApplyModal.onclick = () => {
+      modalApplyPayment.classList.add('hidden');
+      activeApplyJobId = null;
+    };
+
+    applyPaymentForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if (activeApplyJobId === null) return;
+
+      const targetJob = jobsData.find(j => j.id === activeApplyJobId);
+      let onlineDetail = '';
+      let paymentSummary = '';
+
+      if (selectedPaymentMode === 'cash') {
+        paymentSummary = 'Cash Only (Peso ₱)';
+      } else {
+        if (selectedOnlineType === 'card') {
+          const cardType = document.getElementById('input-card-type').value;
+          const holder = document.getElementById('input-card-holder').value.trim();
+          onlineDetail = holder ? `${cardType} (${holder})` : cardType;
+          paymentSummary = `Online - ${onlineDetail}`;
+        } else {
+          const platform = document.getElementById('input-online-platform').value;
+          const account = document.getElementById('input-online-account').value.trim();
+          onlineDetail = account ? `${platform} (${account})` : platform;
+          paymentSummary = `Online - ${onlineDetail}`;
+        }
+      }
+
+      if (targetJob) {
+        const clientOwner = registeredUsers.find(
+          u => u.name.toLowerCase() === (targetJob.postedBy || targetJob.client_name || '').toLowerCase()
+        );
+
+        clientNotifications.unshift({
+          id: Date.now(),
+          jobId: targetJob.id,
+          jobTitle: targetJob.title,
+          category: targetJob.category,
+          clientName: targetJob.postedBy || targetJob.client_name || '',
+          clientGmail: clientOwner ? clientOwner.gmail : '',
+          workerName: currentUser ? currentUser.name : 'Skilled Worker',
+          paymentSummary
+        });
+        saveNotifications();
+      }
+
+      const payload = new URLSearchParams();
+      payload.append('job_id', String(activeApplyJobId));
+      payload.append('payment_mode', selectedPaymentMode);
+      payload.append('online_type', selectedOnlineType);
+      payload.append('online_detail', onlineDetail);
+
+      try {
+        await fetch(API_ENDPOINTS.applyJob, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: payload.toString()
+        });
+      } catch (err) {
+        // Fallback if backend is offline
+      }
+
+      jobsData = jobsData.filter(j => j.id !== activeApplyJobId);
+      modalApplyPayment.classList.add('hidden');
+      activeApplyJobId = null;
+      renderCards();
+      showNotification(`Offer sent (${paymentSummary}) and job removed from open list.`);
+    };
+
+    // Navigation & Auth Controls (prevent creating/switching accounts while already signed in)
+    document.getElementById('brand-logo').onclick = () => {
+      switchView(currentUser ? 'dashboard' : 'entry');
+    };
+    navDashboard.onclick = () => {
+      if (currentUser) switchView('dashboard');
+    };
+
+    function openSignupView(role = 'earn') {
+      if (currentUser) {
+        switchView('dashboard');
+        return;
+      }
+      selectedAuthRole = role;
+      setAuthRole(role);
+      signupForm.reset();
+      selectedItems = [];
+      renderSelectionPicker();
+      switchView('signup');
+    }
+
+    function openLoginView() {
+      if (currentUser) {
+        switchView('dashboard');
+        return;
+      }
+      loginForm.reset();
+      switchView('login');
+    }
+
+    navSignup.onclick = () => openSignupView('earn');
+    navLogin.onclick = () => openLoginView();
+    entryBtnLogin.onclick = () => openLoginView();
+    entryBtnSignupEarn.onclick = () => openSignupView('earn');
+    entryBtnSignupHire.onclick = () => openSignupView('hire');
+
+    switchToLogin.onclick = () => openLoginView();
+    switchToSignup.onclick = () => openSignupView('earn');
+
+    roleBtnEarn.onclick = () => setAuthRole('earn');
+    roleBtnHire.onclick = () => setAuthRole('hire');
+
+    // SIGN UP -> DIRECTLY INTO DASHBOARD
+    signupForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if (currentUser) {
+        switchView('dashboard');
+        return;
+      }
+
+      const nameVal = signupName.value.trim();
+      const gmailVal = signupGmail.value.trim().toLowerCase();
+      const passwordVal = signupPassword.value;
+      const addressVal = signupAddress.value.trim();
+      const phoneVal = signupPhone.value.trim();
+
+      if (!nameVal || !gmailVal || !passwordVal || !addressVal || !phoneVal) return;
+
+      const formData = new FormData();
+      formData.append('name', nameVal);
+      formData.append('gmail', gmailVal);
+      formData.append('password', passwordVal);
+      formData.append('address', addressVal);
+      formData.append('phone', phoneVal);
+      formData.append('role', selectedAuthRole);
+      selectedItems.forEach(skill => formData.append('skills[]', skill));
+
+      try {
+        const res = await fetch(API_ENDPOINTS.signup, {
+          method: 'POST',
+          body: formData
+        });
+        if (res.ok) {
+          await syncBackendState(false);
+        }
+      } catch (err) {
+        // Offline / localStorage fallback
+      }
+
+      const newAccount = {
+        id: Date.now(),
+        name: nameVal,
+        gmail: gmailVal,
+        password: passwordVal,
+        address: addressVal,
+        phone: phoneVal,
+        role: selectedAuthRole,
+        selectedItems: [...selectedItems]
+      };
+
+      registeredUsers = registeredUsers.filter(u => u.gmail.toLowerCase() !== gmailVal);
+      registeredUsers.push(newAccount);
+      localStorage.setItem(STORAGE_USERS_KEY, JSON.stringify(registeredUsers));
+
+      currentUser = newAccount;
+      updateNavState();
+      switchView('dashboard');
+      showNotification('Account created! Welcome to your Dashboard.');
+    };
+
+    // LOG IN -> DIRECTLY INTO DASHBOARD
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if (currentUser) {
+        switchView('dashboard');
+        return;
+      }
+
+      const gmailVal = loginGmail.value.trim().toLowerCase();
+      const passwordVal = loginPassword.value;
+
+      if (!gmailVal || !passwordVal) return;
+
+      let backendAuthenticated = false;
+      try {
+        const payload = new URLSearchParams();
+        payload.append('gmail', gmailVal);
+        payload.append('password', passwordVal);
+
+        const res = await fetch(API_ENDPOINTS.login, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: payload.toString()
+        });
+
+        if (res.ok) {
+          const contentType = res.headers.get('content-type') || '';
+          if (contentType.includes('application/json')) {
+            const data = await res.json();
+            if (data.success && data.user) {
+              currentUser = {
+                id: data.user.id,
+                name: data.user.full_name || data.user.name,
+                gmail: data.user.gmail,
+                address: data.user.address,
+                phone: data.user.phone,
+                role: data.user.role === 'hire' ? 'hire' : 'earn',
+                selectedItems: Array.isArray(data.skills) ? data.skills : []
+              };
+              backendAuthenticated = true;
+            }
+          }
+        }
+      } catch (err) {
+        // Fallback to localStorage check
+      }
+
+      if (!backendAuthenticated) {
+        const matchedUser = registeredUsers.find(
+          u => u.gmail.toLowerCase() === gmailVal && u.password === passwordVal
+        );
+
+        if (!matchedUser) {
+          showNotification('Invalid Gmail address or password. Please sign up first.');
+          return;
+        }
+        currentUser = matchedUser;
+      }
+
+      updateNavState();
+      switchView('dashboard');
+      showNotification(`Logged in! Welcome back, ${currentUser.name}.`);
+    };
+
+    async function handleLogout() {
+      try {
+        await fetch(API_ENDPOINTS.logout, { method: 'POST' });
+      } catch (err) {
+        // Fallback
+      }
+      currentUser = null;
+      updateNavState();
+      switchView('entry');
+      showNotification('Logged out successfully.');
+    }
+
+    btnLogout.onclick = handleLogout;
+    profileBtnLogout.onclick = handleLogout;
+
+    searchInput.oninput = (e) => {
+      searchQuery = e.target.value;
+      renderCards();
+    };
+
+    btnPostTask.onclick = () => {
+      newTaskForm.reset();
+      pendingTaskImageUrl = '';
+      pendingTaskImageFile = null;
+      taskImagePreviewWrap.classList.add('hidden');
+      
+      taskCategorySelect.innerHTML = '';
+      tradeCatalog.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t.skill;
+        opt.textContent = t.skill;
+        taskCategorySelect.appendChild(opt);
+      });
+
+      modalPostTask.classList.remove('hidden');
+    };
+
+    btnCloseModal.onclick = () => {
+      modalPostTask.classList.add('hidden');
+    };
+
+    taskImageInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        pendingTaskImageFile = file;
+        const reader = new FileReader();
+        reader.onload = (uploadEvent) => {
+          pendingTaskImageUrl = uploadEvent.target.result;
+          taskImagePreview.src = pendingTaskImageUrl;
+          taskImagePreviewWrap.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    btnRemoveTaskImage.onclick = () => {
+      pendingTaskImageUrl = '';
+      pendingTaskImageFile = null;
+      taskImageInput.value = '';
+      taskImagePreviewWrap.classList.add('hidden');
+    };
+
+    newTaskForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      const title = document.getElementById('task-title').value.trim();
+      const category = taskCategorySelect.value;
+      const rawBudget = document.getElementById('task-budget').value.trim();
+      const numericBudget = rawBudget ? Math.max(0, Number(rawBudget)) : 0;
+      const formattedBudget = rawBudget ? `₱${numericBudget.toLocaleString()}` : 'Negotiable (₱)';
+      const desc = document.getElementById('task-desc').value.trim();
+
+      if (!title) return;
+
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('category', category);
+      formData.append('budget', String(numericBudget));
+      formData.append('description', desc || 'No additional description provided.');
+      if (pendingTaskImageFile) {
+        formData.append('image', pendingTaskImageFile);
+      }
+
+      let serverJobId = Date.now();
+      let serverImagePath = pendingTaskImageUrl;
+
+      try {
+        const res = await fetch(API_ENDPOINTS.postJob, {
+          method: 'POST',
+          body: formData
+        });
+        if (res.ok) {
+          const contentType = res.headers.get('content-type') || '';
+          if (contentType.includes('application/json')) {
+            const saved = await res.json();
+            if (saved.id) serverJobId = saved.id;
+            if (saved.image_path) serverImagePath = saved.image_path;
+          }
+        }
+      } catch (err) {
+        // Fallback if backend is offline
+      }
+
+      const newJob = {
+        id: serverJobId,
+        title,
+        category,
+        budget: formattedBudget,
+        location: currentUser.address,
+        postedBy: currentUser.name,
+        description: desc || 'No additional description provided.',
+        imageUrl: serverImagePath
+      };
+
+      jobsData.unshift(newJob);
+      modalPostTask.classList.add('hidden');
+      renderCards();
+      showNotification('Job Repair Post published successfully!');
+    };
+
+    updateNavState();
+    switchView(currentUser ? 'dashboard' : 'entry');
+    syncBackendState(true);
+  </script>
+</body>
+</html>
